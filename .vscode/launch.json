@@ -1,0 +1,25 @@
+{
+    // Use IntelliSense para saber los atributos posibles.
+    // Mantenga el puntero para ver las descripciones de los existentes atributos.
+    // Para más información, visite: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "type": "pwa-node",
+            "request": "launch",
+            "name": "Launch Node Server",
+            "program": "${workspaceFolder}/server.js",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal"
+        },
+        {
+            "type": "pwa-msedge",
+            "request": "launch",
+            "name": "Open INDEX.HTML in Edge",
+            "url": "http://localhost:5500/INDEX.HTML",
+            "webRoot": "${workspaceFolder}",
+            "preLaunchTask": "Start Server"
+        }
+    ]
+}
