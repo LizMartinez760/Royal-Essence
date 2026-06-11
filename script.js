@@ -1,10 +1,35 @@
 // ==================== WHATSAPP ====================
-function pedir(producto, precio) {
-  const numero = "595986179875"; 
+function getCustomerData() {
+  return {
+    nombre: document.getElementById('client-name')?.value.trim() || '',
+    apellido: document.getElementById('client-lastname')?.value.trim() || '',
+    ciudad: document.getElementById('client-city')?.value.trim() || '',
+    cedula: document.getElementById('client-id')?.value.trim() || ''
+  };
+}
+
+function pedir(producto, precio, imagen) {
+  const numero = "595986179875";
+  const cliente = getCustomerData();
   let mensaje = `Hola! Quiero pedir el perfume: ${producto}`;
+
   if (precio !== undefined) {
     mensaje += ` - Precio: ₲ ${precio}`;
   }
+
+  if (cliente.nombre || cliente.apellido || cliente.ciudad || cliente.cedula) {
+    mensaje += `\n\nDatos del cliente:`;
+    if (cliente.nombre) mensaje += `\nNombre: ${cliente.nombre}`;
+    if (cliente.apellido) mensaje += `\nApellido: ${cliente.apellido}`;
+    if (cliente.ciudad) mensaje += `\nCiudad: ${cliente.ciudad}`;
+    if (cliente.cedula) mensaje += `\nCédula: ${cliente.cedula}`;
+  }
+
+  if (imagen) {
+    const imageUrl = `${window.location.origin}/${imagen.replace(/^\/+/, '')}`;
+    mensaje += `\n\nImagen: ${imageUrl}`;
+  }
+
   const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
   window.open(url, "_blank");
 }
