@@ -1,37 +1,73 @@
 // ==================== WHATSAPP ====================
-function getCustomerData() {
-  return {
-    nombre: document.getElementById('client-name')?.value.trim() || '',
-    apellido: document.getElementById('client-lastname')?.value.trim() || '',
-    ciudad: document.getElementById('client-city')?.value.trim() || '',
-    cedula: document.getElementById('client-id')?.value.trim() || ''
-  };
+let pedidoActivo = {
+  producto: '',
+  precio: 0,
+  imagen: ''
+};
+
+function abrirModalPedido(producto, precio, imagen) {
+  pedidoActivo.producto = producto;
+  pedidoActivo.precio = precio;
+  pedidoActivo.imagen = imagen;
+
+  const modal = document.getElementById('clientModal');
+  const productName = document.getElementById('modal-product-name');
+  const nameInput = document.getElementById('modal-client-name');
+  const lastnameInput = document.getElementById('modal-client-lastname');
+  const cityInput = document.getElementById('modal-client-city');
+  const idInput = document.getElementById('modal-client-id');
+
+  if (productName) {
+    productName.textContent = `${producto} - ₲ ${precio}`;
+  }
+
+  if (nameInput) nameInput.value = '';
+  if (lastnameInput) lastnameInput.value = '';
+  if (cityInput) cityInput.value = '';
+  if (idInput) idInput.value = '';
+
+  if (modal) {
+    modal.style.display = 'flex';
+    modal.setAttribute('aria-hidden', 'false');
+  }
 }
 
-function pedir(producto, precio, imagen) {
-  const numero = "595986179875";
-  const cliente = getCustomerData();
-  let mensaje = `Hola! Quiero pedir el perfume: ${producto}`;
+function cerrarModalPedido() {
+  const modal = document.getElementById('clientModal');
+  if (modal) {
+    modal.style.display = 'none';
+    modal.setAttribute('aria-hidden', 'true');
+  }
+}
 
-  if (precio !== undefined) {
-    mensaje += ` - Precio: ₲ ${precio}`;
+function enviarPedidoWhatsApp() {
+  const numero = '595986179875';
+  const nombre = document.getElementById('modal-client-name')?.value.trim() || '';
+  const apellido = document.getElementById('modal-client-lastname')?.value.trim() || '';
+  const ciudad = document.getElementById('modal-client-city')?.value.trim() || '';
+  const cedula = document.getElementById('modal-client-id')?.value.trim() || '';
+
+  let mensaje = `Hola! Quiero pedir el perfume: ${pedidoActivo.producto}`;
+  if (pedidoActivo.precio !== undefined) {
+    mensaje += ` - Precio: ₲ ${pedidoActivo.precio}`;
   }
 
-  if (cliente.nombre || cliente.apellido || cliente.ciudad || cliente.cedula) {
+  if (nombre || apellido || ciudad || cedula) {
     mensaje += `\n\nDatos del cliente:`;
-    if (cliente.nombre) mensaje += `\nNombre: ${cliente.nombre}`;
-    if (cliente.apellido) mensaje += `\nApellido: ${cliente.apellido}`;
-    if (cliente.ciudad) mensaje += `\nCiudad: ${cliente.ciudad}`;
-    if (cliente.cedula) mensaje += `\nCédula: ${cliente.cedula}`;
+    if (nombre) mensaje += `\nNombre: ${nombre}`;
+    if (apellido) mensaje += `\nApellido: ${apellido}`;
+    if (ciudad) mensaje += `\nCiudad: ${ciudad}`;
+    if (cedula) mensaje += `\nCédula: ${cedula}`;
   }
 
-  if (imagen) {
-    const imageUrl = `${window.location.origin}/${imagen.replace(/^\/+/, '')}`;
+  if (pedidoActivo.imagen) {
+    const imageUrl = `${window.location.origin}/${pedidoActivo.imagen.replace(/^\/+/, '')}`;
     mensaje += `\n\nImagen: ${imageUrl}`;
   }
 
   const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
-  window.open(url, "_blank");
+  window.open(url, '_blank');
+  cerrarModalPedido();
 }
 
 // ==================== BÚSQUEDA ====================

@@ -27,19 +27,6 @@
     <!-- notice moved to footer for higher visibility -->
   </header>
 
-  <!-- DATOS DEL CLIENTE -->
-  <section class="cliente-info">
-    <h2>Datos del cliente interesado</h2>
-    <div class="form-row">
-      <input id="client-name" type="text" placeholder="Nombre">
-      <input id="client-lastname" type="text" placeholder="Apellido">
-    </div>
-    <div class="form-row">
-      <input id="client-city" type="text" placeholder="Ciudad">
-      <input id="client-id" type="text" placeholder="Cédula">
-    </div>
-  </section>
-
   <!-- CATALOGO -->
   <section class="catalogo">
 
@@ -59,7 +46,7 @@
             Destaca por su alta duración y estela pesada, lo que lo hace perfecto 
             para la noche o climas frescos.</p>
         <p class="precio">₲ 350000</p>
-        <button onclick="pedir('Perfume 9PM REBEL', 350000, 'img/perfume1.jpg')">Pedir por WhatsApp</button>
+        <button onclick="abrirModalPedido('Perfume 9PM REBEL', 350000, 'img/perfume1.jpg')">Pedir por WhatsApp</button>
       </div>
 
       <!-- PRODUCTO 2 -->
@@ -68,7 +55,7 @@
         <h3> fakhar lattafa black</h3>
         <p>Fragancia premium y sofisticada.</p>
         <p class="precio">₲ 220000</p>
-        <button onclick="pedir(' fakhar lattafa black', 220000, 'img/perfume2.jpg')">Pedir por WhatsApp</button>
+        <button onclick="abrirModalPedido('fakhar lattafa black', 220000, 'img/perfume2.jpg')">Pedir por WhatsApp</button>
       </div>
 
       <!-- PRODUCTO 3 -->
@@ -77,7 +64,7 @@
         <h3>Odysey Home</h3>
         <p>Es un perfume con un aroma oriental, dulce y especiado.</p>
         <p class="precio">₲ 180000</p>
-        <button onclick="pedir('Odysey Home', 180000, 'img/perfume3.jpg')">Pedir por WhatsApp</button>
+        <button onclick="abrirModalPedido('Odysey Home', 180000, 'img/perfume3.jpg')">Pedir por WhatsApp</button>
       </div>
       <!-- PRODUCTO 4 -->
       <div class="card">
@@ -86,7 +73,7 @@
         <p>Es una fragancia oriental especiada para hombres.
             Huele a una combinación cálida, dulce y adictiva de vainilla, chocolate oscuro y licor..</p>
         <p class="precio">₲ 100000</p>
-        <button onclick="pedir('Asad bourbon', 100000, 'img/perfume4.jpg')">Pedir por WhatsApp</button>
+        <button onclick="abrirModalPedido('Asad bourbon', 100000, 'img/perfume4.jpg')">Pedir por WhatsApp</button>
       </div>
       <!-- PRODUCTO 5 -->
       <div class="card">
@@ -95,7 +82,7 @@
         <p> (versión tradicional) huele a un aroma dulce, frutal y especiado. 
             Es muy juvenil, llamativo y tiene un toque seductor.</p>
         <p class="precio">₲ 250000</p>
-        <button onclick="pedir('9pm Tradicional', 250000, 'img/perfume5.jpg')">Pedir por WhatsApp</button>
+        <button onclick="abrirModalPedido('9pm Tradicional', 250000, 'img/perfume5.jpg')">Pedir por WhatsApp</button>
       </div>
       <!-- PRODUCTO 6 -->
       <div class="card">
@@ -104,7 +91,7 @@
         <p> (versión tradicional) huele a un aroma dulce, frutal y especiado. 
             Es muy juvenil, llamativo y tiene un toque seductor.</p>
         <p class="precio">₲ 220000</p>
-        <button onclick="pedir('LATTAFA FAKHAR GOLD ', 250000, 'img/perfume6.jpg')">Pedir por WhatsApp</button>
+        <button onclick="abrirModalPedido('LATTAFA FAKHAR GOLD', 220000, 'img/perfume6.jpg')">Pedir por WhatsApp</button>
       </div>
 
 
@@ -118,6 +105,26 @@
     </div>
     <p>© 2026 Royal Essence - Todos los derechos reservados</p>
   </footer>
+
+  <section id="clientModal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button class="modal-close" type="button" onclick="cerrarModalPedido()" aria-label="Cerrar ventana">×</button>
+      <h2 id="modal-title">Completa tus datos para el pedido</h2>
+      <p id="modal-product-name" class="modal-product-name"></p>
+      <div class="form-row">
+        <input id="modal-client-name" type="text" placeholder="Nombre" autocomplete="name">
+        <input id="modal-client-lastname" type="text" placeholder="Apellido" autocomplete="family-name">
+      </div>
+      <div class="form-row">
+        <input id="modal-client-city" type="text" placeholder="Ciudad" autocomplete="address-level2">
+        <input id="modal-client-id" type="text" placeholder="Cédula" autocomplete="off">
+      </div>
+      <div class="modal-actions">
+        <button class="btn-pedir" type="button" onclick="enviarPedidoWhatsApp()">Enviar pedido</button>
+        <button class="btn-cancel" type="button" onclick="cerrarModalPedido()">Cancelar</button>
+      </div>
+    </div>
+  </section>
 
   <script src="script.js"></script>
 </body>
